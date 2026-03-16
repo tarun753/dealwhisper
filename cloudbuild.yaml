@@ -1,0 +1,35 @@
+substitutions:
+  _TAG: ${SHORT_SHA:-latest}
+
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "build"
+      - "-f"
+      - "backend/Dockerfile"
+      - "-t"
+      - "gcr.io/$PROJECT_ID/dealwhisper-backend:${_TAG}"
+      - "."
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "push"
+      - "gcr.io/$PROJECT_ID/dealwhisper-backend:${_TAG}"
+
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      - "run"
+      - "deploy"
+      - "dealwhisper-backend"
+      - "--image=gcr.io/$PROJECT_ID/dealwhisper-backend:${_TAG}"
+      - "--platform=managed"
+      - "--region=us-central1"
+      - "--allow-unauthenticated"
+      - "--memory=2Gi"
+      - "--cpu=2"
+      - "--min-instances=0"
+      - "--max-instances=50"
+      - "--port=8080"
+      - "--timeout=3600"
+      - "--set-env-vars=PROJECT_ID=$PROJECT_ID,LOCATION=us-central1,VOICE_NAME=Charon,LIVE_RUNTIME_MODE=auto,FRONTEND_ORIGIN=*"
