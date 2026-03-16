@@ -59,14 +59,14 @@ function inferBackendWsBase(): string {
 const defaultBackendWsBase = inferBackendWsBase()
 
 function isVisualSource(value: string): value is VisualSource {
-  return value === 'camera' || value === 'screen' || value === 'none'
+  return value === 'screen' || value === 'none'
 }
 
 function getDefaultLivePrefs(): LivePrefs {
   return {
     backendWsBase: defaultBackendWsBase,
     buyerContext: defaultBuyerContext,
-    visualSource: 'camera',
+    visualSource: 'screen',
   }
 }
 
@@ -656,7 +656,7 @@ function PreCall({ onStartSession, briefingMessages, setBriefingMessages }: { on
               <span style={{display:'inline-flex',alignItems:'center',justifyContent:'center',width:'1.6rem',height:'1.6rem',borderRadius:'50%',background:'linear-gradient(135deg, var(--accent-teal) 0%, #17d4c1 100%)',color:'#000',fontWeight:700,fontSize:'0.75rem',flexShrink:0}}>2</span>
               <div>
                 <strong>Live session</strong>
-                <p>Connect your mic and camera. DealWhisper listens to the conversation and delivers real-time coaching whispers.</p>
+                <p>Share your screen and mic. DealWhisper listens to the conversation and delivers real-time text coaching whispers.</p>
               </div>
             </li>
             <li style={{display:'flex',gap:'0.75rem',alignItems:'flex-start'}}>
@@ -1614,7 +1614,7 @@ function MediaPreview({ detail, stream, title }: { detail: string; stream: Media
           <h4>{title}</h4>
         </div>
       </div>
-      {stream ? <video autoPlay className="preview-video" muted playsInline ref={videoRef} /> : <div className="preview-empty">No camera or screen stream attached.</div>}
+      {stream ? <video autoPlay className="preview-video" muted playsInline ref={videoRef} /> : <div className="preview-empty">No screen stream attached.</div>}
       <p className="preview-detail">{detail}</p>
     </div>
   )

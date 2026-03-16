@@ -191,17 +191,6 @@ async function createVisualStream(source: VisualSource) {
     throw new Error('Media devices are not available in this browser.')
   }
 
-  if (source === 'camera') {
-    return navigator.mediaDevices.getUserMedia({
-      video: {
-        width: { ideal: 1280 },
-        height: { ideal: 720 },
-        facingMode: 'user',
-      },
-      audio: false,
-    })
-  }
-
   if (source === 'screen') {
     if (!('getDisplayMedia' in navigator.mediaDevices)) {
       throw new Error('Screen capture is not supported in this browser.')
@@ -231,7 +220,7 @@ export function useDealWhisperSession(): DealWhisperSession {
   const [whisperHistory, setWhisperHistory] = useState<WhisperHistoryItem[]>([])
   const [transcriptFeed, setTranscriptFeed] = useState<TranscriptEntry[]>([])
   const [previewStream, setPreviewStream] = useState<MediaStream | null>(null)
-  const [currentVisualSource, setCurrentVisualSource] = useState<VisualSource>('camera')
+  const [currentVisualSource, setCurrentVisualSource] = useState<VisualSource>('screen')
   const [runtimeMode, setRuntimeMode] = useState<LiveRuntimeMode>('unknown')
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
   const [sessionMeta, setSessionMeta] = useState<SessionMeta | null>(null)

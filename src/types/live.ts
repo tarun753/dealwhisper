@@ -1,4 +1,4 @@
-export type VisualSource = 'camera' | 'screen' | 'none'
+export type VisualSource = 'screen' | 'none'
 
 export type LiveSessionStatus = 'idle' | 'connecting' | 'live' | 'ending' | 'ended' | 'error'
 export type LiveRuntimeMode = 'unknown' | 'vertex' | 'mock'
