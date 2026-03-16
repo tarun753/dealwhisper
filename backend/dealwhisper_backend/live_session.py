@@ -60,7 +60,7 @@ class DealWhisperLiveGateway:
 
     def _build_session_config(self) -> dict[str, Any]:
         return {
-            "response_modalities": ["AUDIO"],
+            "response_modalities": ["TEXT"],
             "system_instruction": PRODUCTION_SYSTEM_INSTRUCTION,
             "temperature": 0.3,
             "top_p": 0.85,

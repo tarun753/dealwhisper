@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 import { useDealWhisperSession, type DealWhisperSession } from './hooks/useDealWhisperSession'
+import { useVoiceInput } from './hooks/useVoiceInput'
 import { buildApiEndpoint, fetchJsonWithAuth } from './lib/backend'
 import { deriveLiveDebrief } from './lib/liveDebrief'
 import type {
@@ -225,6 +226,39 @@ function PreCall({ onStartSession, briefingMessages, setBriefingMessages }: { on
   const [briefingLoading, setBriefingLoading] = useState(false)
   const [briefingStarted, setBriefingStarted] = useState(false)
   const briefingRef = useRef<HTMLDivElement | null>(null)
+
+  const sendVoiceTranscript = useCallback((text: string) => {
+    setBriefingInput(text)
+    // Auto-send after a tick so React can render the text
+    setTimeout(() => {
+      const fakeInput = text
+      if (!fakeInput.trim() || briefingLoading) return
+      const userMsg: BriefingMessage = { role: 'user', content: fakeInput.trim() }
+      const updatedMessages = [...briefingMessages, userMsg]
+      setBriefingMessages(updatedMessages)
+      setBriefingInput('')
+      setBriefingLoading(true)
+      setTimeout(() => { briefingRef.current?.scrollTo(0, briefingRef.current.scrollHeight) }, 50)
+      const apiBase = livePrefs.backendWsBase.replace(/^ws/, 'http').replace(/\/ws\/call$/, '')
+      void fetchJsonWithAuth<{ reply: string }>(
+        buildApiEndpoint(apiBase, '/api/briefing'),
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ buyer_context: buyerContext, messages: updatedMessages }),
+        },
+      ).then((result) => {
+        setBriefingMessages((prev) => [...prev, { role: 'assistant', content: result.reply }])
+        setTimeout(() => { briefingRef.current?.scrollTo(0, briefingRef.current.scrollHeight) }, 100)
+      }).catch(() => {
+        setBriefingMessages((prev) => [...prev, { role: 'assistant', content: 'I didn\'t catch that — could you say more about the meeting?' }])
+      }).finally(() => {
+        setBriefingLoading(false)
+      })
+    }, 0)
+  }, [briefingMessages, briefingLoading, buyerContext, livePrefs.backendWsBase, setBriefingMessages])
+
+  const voiceInput = useVoiceInput(sendVoiceTranscript)
 
   const startBriefing = async () => {
     setBriefingStarted(true)
@@ -529,14 +563,14 @@ function PreCall({ onStartSession, briefingMessages, setBriefingMessages }: { on
                   value={briefingInput}
                   onChange={(e) => setBriefingInput(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); void sendBriefingMessage() } }}
-                  placeholder="Tell the AI about your meeting..."
-                  disabled={briefingLoading}
+                  placeholder={voiceInput.state === 'listening' ? 'Listening...' : 'Type or tap mic to speak...'}
+                  disabled={briefingLoading || voiceInput.state === 'listening'}
                   style={{
                     flex: 1,
                     padding: '0.7rem 0.9rem',
-                    border: '1px solid rgba(160,131,255,0.2)',
+                    border: `1px solid ${voiceInput.state === 'listening' ? 'rgba(255,95,95,0.5)' : 'rgba(160,131,255,0.2)'}`,
                     borderRadius: 'var(--radius-md)',
-                    background: 'rgba(255,255,255,0.03)',
+                    background: voiceInput.state === 'listening' ? 'rgba(255,95,95,0.05)' : 'rgba(255,255,255,0.03)',
                     color: 'var(--text-primary)',
                     fontSize: '0.88rem',
                     outline: 'none',
@@ -545,6 +579,28 @@ function PreCall({ onStartSession, briefingMessages, setBriefingMessages }: { on
                   onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(160,131,255,0.5)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(160,131,255,0.12)' }}
                   onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(160,131,255,0.2)'; e.currentTarget.style.boxShadow = 'none' }}
                 />
+                {voiceInput.isSupported ? (
+                  <button
+                    className="action-button"
+                    onClick={voiceInput.toggle}
+                    disabled={briefingLoading}
+                    type="button"
+                    style={{
+                      padding:'0.7rem 0.8rem',
+                      background: voiceInput.state === 'listening' ? 'rgba(255,95,95,0.2)' : 'rgba(160,131,255,0.1)',
+                      border: `1px solid ${voiceInput.state === 'listening' ? 'rgba(255,95,95,0.4)' : 'rgba(160,131,255,0.3)'}`,
+                      color: voiceInput.state === 'listening' ? '#ff5f5f' : 'var(--accent-purple)',
+                      fontWeight:600,
+                      flexShrink:0,
+                      fontSize:'1.1rem',
+                      lineHeight:1,
+                      animation: voiceInput.state === 'listening' ? 'pulse 1s ease-in-out infinite' : 'none',
+                    }}
+                    title={voiceInput.state === 'listening' ? 'Stop listening' : 'Speak your briefing'}
+                  >
+                    {voiceInput.state === 'listening' ? '◉' : '🎤'}
+                  </button>
+                ) : null}
                 <button
                   className="action-button"
                   onClick={() => void sendBriefingMessage()}
@@ -647,7 +703,7 @@ function LiveCall({ session, briefingMessages }: { session: DealWhisperSession; 
   const [backendWsBase, setBackendWsBase] = useState(livePrefs.backendWsBase)
   const [buyerContext, setBuyerContext] = useState(livePrefs.buyerContext)
   const [callId, setCallId] = useState(createCallId(livePrefs.buyerContext.name))
-  const [visualSource, setVisualSource] = useState<VisualSource>(livePrefs.visualSource)
+  const [visualSource] = useState<VisualSource>('screen')
   const [noteDraft, setNoteDraft] = useState('')
   const [overlayVisible, setOverlayVisible] = useState(true)
   const [overlayOpacity, setOverlayOpacity] = useState(0.85)
@@ -684,12 +740,6 @@ function LiveCall({ session, briefingMessages }: { session: DealWhisperSession; 
     })
   }
 
-  const handleSourceChange = async (source: VisualSource) => {
-    setVisualSource(source)
-    if (session.status === 'live' || session.status === 'connecting') {
-      await session.switchVisualSource(source)
-    }
-  }
 
   const handleSendNote = async () => {
     if (!noteDraft.trim()) return
@@ -803,30 +853,10 @@ function LiveCall({ session, briefingMessages }: { session: DealWhisperSession; 
 
               <div className="preview-stack">
                 <MediaPreview
-                  detail={
-                    visualSource === 'none'
-                      ? 'Audio-only mode. No visual stream.'
-                      : `Will stream ${visualSource} frames to the AI model.`
-                  }
+                  detail="Will share your screen + microphone with the AI coach."
                   stream={session.previewStream}
                   title="Visual preview"
                 />
-
-                <div className="surface surface-nested">
-                  <p className="eyebrow">Visual source</p>
-                  <div className="source-toggle-group">
-                    {(['camera', 'screen', 'none'] as VisualSource[]).map((source) => (
-                      <button
-                        className={`source-toggle ${visualSource === source ? 'source-toggle-active' : ''}`}
-                        key={source}
-                        onClick={() => void handleSourceChange(source)}
-                        type="button"
-                      >
-                        {source}
-                      </button>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
           ) : null}
@@ -845,7 +875,7 @@ function LiveCall({ session, briefingMessages }: { session: DealWhisperSession; 
                   Connecting...
                 </span>
               ) : (
-                <><span style={{color:'var(--accent-red)'}}>●</span> Connect with mic + camera</>
+                <><span style={{color:'var(--accent-red)'}}>●</span> Start session (mic + screen)</>
               )}
             </button>
             <button className="action-button action-button-secondary" disabled={!isLive && !isBusy} onClick={() => void session.disconnect()} type="button">
