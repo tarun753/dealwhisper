@@ -64,15 +64,7 @@ class DealWhisperLiveGateway:
             "system_instruction": PRODUCTION_SYSTEM_INSTRUCTION,
             "temperature": 0.3,
             "top_p": 0.85,
-            "speech_config": {
-                "voice_config": {
-                    "prebuilt_voice_config": {
-                        "voice_name": self.settings.voice_name,
-                    }
-                }
-            },
             "input_audio_transcription": {},
-            "output_audio_transcription": {},
             "context_window_compression": {
                 "trigger_tokens": 25000,
                 "sliding_window": {"target_tokens": 20000},

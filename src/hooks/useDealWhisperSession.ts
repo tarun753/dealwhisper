@@ -402,7 +402,7 @@ export function useDealWhisperSession(): DealWhisperSession {
 
   useEffect(() => {
     return () => {
-      window.speechSynthesis?.cancel()
+      // cleanup
       websocketRef.current?.close()
       void stopVisualCapture()
       void stopAudioCapture()
@@ -500,18 +500,6 @@ export function useDealWhisperSession(): DealWhisperSession {
     }
   }
 
-  const speakMockWhisper = (text: string) => {
-    if (runtimeModeRef.current !== 'mock' || !('speechSynthesis' in window)) {
-      return
-    }
-
-    window.speechSynthesis.cancel()
-    const utterance = new SpeechSynthesisUtterance(text)
-    utterance.rate = 1.04
-    utterance.pitch = 0.9
-    utterance.volume = 0.85
-    window.speechSynthesis.speak(utterance)
-  }
 
   const handleServerMessage = async (message: MessageEvent<string>) => {
     const payload = JSON.parse(message.data) as ServerMessage
@@ -548,7 +536,7 @@ export function useDealWhisperSession(): DealWhisperSession {
 
     if (payload.type === 'whisper.payload') {
       pushWhisper(payload.payload)
-      speakMockWhisper(payload.payload.audio_text)
+      // whispers are text-only — no audio playback
       return
     }
 
