@@ -1,5 +1,5 @@
 substitutions:
-  _TAG: ${SHORT_SHA:-latest}
+  _TAG: latest
 
 steps:
   - name: "gcr.io/cloud-builders/docker"
