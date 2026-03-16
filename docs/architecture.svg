@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+  <defs>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f1117"/>
+      <stop offset="100%" stop-color="#1a1d2e"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d4a84b"/>
+      <stop offset="100%" stop-color="#c8963e"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14b8a6"/>
+      <stop offset="100%" stop-color="#0d9488"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="url(#bgGrad)" rx="0"/>
+
+  <!-- Title -->
+  <text x="600" y="40" fill="#d4a84b" font-size="24" font-weight="700" text-anchor="middle" letter-spacing="2">DEALWHISPER</text>
+  <text x="600" y="62" fill="#94a3b8" font-size="13" text-anchor="middle" letter-spacing="1">SYSTEM ARCHITECTURE</text>
+
+  <!-- ============================================ -->
+  <!-- USER LAYER (Gold) -->
+  <!-- ============================================ -->
+  <rect x="30" y="80" width="340" height="160" rx="12" fill="none" stroke="#d4a84b" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.5"/>
+  <text x="50" y="100" fill="#d4a84b" font-size="11" font-weight="600" letter-spacing="1.5">USER LAYER</text>
+
+  <!-- Browser -->
+  <rect x="50" y="112" width="140" height="50" rx="8" fill="#1e1f2e" stroke="#d4a84b" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="120" y="134" fill="#d4a84b" font-size="12" font-weight="600" text-anchor="middle">Browser</text>
+  <text x="120" y="150" fill="#94a3b8" font-size="9" text-anchor="middle">React 19 + Vite</text>
+
+  <!-- Microphone -->
+  <rect x="50" y="172" width="140" height="50" rx="8" fill="#1e1f2e" stroke="#d4a84b" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="120" y="194" fill="#d4a84b" font-size="12" font-weight="600" text-anchor="middle">Microphone</text>
+  <text x="120" y="210" fill="#94a3b8" font-size="9" text-anchor="middle">16kHz PCM Audio</text>
+
+  <!-- Camera/Screen -->
+  <rect x="210" y="112" width="140" height="110" rx="8" fill="#1e1f2e" stroke="#d4a84b" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="280" y="154" fill="#d4a84b" font-size="12" font-weight="600" text-anchor="middle">Camera / Screen</text>
+  <text x="280" y="172" fill="#94a3b8" font-size="9" text-anchor="middle">JPEG Frames</text>
+
+  <!-- ============================================ -->
+  <!-- FRONTEND (Teal) -->
+  <!-- ============================================ -->
+  <rect x="30" y="260" width="340" height="230" rx="12" fill="none" stroke="#14b8a6" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.5"/>
+  <text x="50" y="280" fill="#14b8a6" font-size="11" font-weight="600" letter-spacing="1.5">FRONTEND (REACT)</text>
+
+  <!-- Pre-Call Setup -->
+  <rect x="50" y="294" width="300" height="50" rx="8" fill="#1e1f2e" stroke="#14b8a6" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="200" y="314" fill="#14b8a6" font-size="12" font-weight="600" text-anchor="middle">Pre-Call Setup</text>
+  <text x="200" y="332" fill="#94a3b8" font-size="9" text-anchor="middle">Buyer context, research, briefing chat</text>
+
+  <!-- Live Session -->
+  <rect x="50" y="354" width="300" height="50" rx="8" fill="#1e1f2e" stroke="#14b8a6" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="200" y="374" fill="#14b8a6" font-size="12" font-weight="600" text-anchor="middle">Live Session</text>
+  <text x="200" y="392" fill="#94a3b8" font-size="9" text-anchor="middle">WebSocket audio/video, HUD, whisper feed</text>
+
+  <!-- Post-Call Debrief -->
+  <rect x="50" y="414" width="300" height="50" rx="8" fill="#1e1f2e" stroke="#14b8a6" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="200" y="434" fill="#14b8a6" font-size="12" font-weight="600" text-anchor="middle">Post-Call Debrief</text>
+  <text x="200" y="452" fill="#94a3b8" font-size="9" text-anchor="middle">AI follow-ups, coaching metrics</text>
+
+  <!-- ============================================ -->
+  <!-- BACKEND (Blue) -->
+  <!-- ============================================ -->
+  <rect x="430" y="80" width="340" height="410" rx="12" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.5"/>
+  <text x="450" y="100" fill="#3b82f6" font-size="11" font-weight="600" letter-spacing="1.5">BACKEND (FASTAPI ON CLOUD RUN)</text>
+
+  <!-- REST API -->
+  <rect x="450" y="112" width="300" height="60" rx="8" fill="#1e1f2e" stroke="#3b82f6" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="600" y="134" fill="#3b82f6" font-size="12" font-weight="600" text-anchor="middle">REST API Endpoints</text>
+  <text x="600" y="150" fill="#94a3b8" font-size="9" text-anchor="middle">/api/research  /api/briefing  /api/sessions</text>
+  <text x="600" y="163" fill="#64748b" font-size="8" text-anchor="middle">Pre-call &amp; post-call data</text>
+
+  <!-- WebSocket Gateway -->
+  <rect x="450" y="184" width="300" height="60" rx="8" fill="#1e1f2e" stroke="#3b82f6" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="600" y="206" fill="#3b82f6" font-size="12" font-weight="600" text-anchor="middle">WebSocket Gateway</text>
+  <text x="600" y="222" fill="#94a3b8" font-size="9" text-anchor="middle">/ws/call/{session_id}</text>
+  <text x="600" y="235" fill="#64748b" font-size="8" text-anchor="middle">Bidirectional audio/video relay</text>
+
+  <!-- Session Artifact Store -->
+  <rect x="450" y="256" width="300" height="50" rx="8" fill="#1e1f2e" stroke="#3b82f6" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="600" y="276" fill="#3b82f6" font-size="12" font-weight="600" text-anchor="middle">Session Artifact Store</text>
+  <text x="600" y="294" fill="#94a3b8" font-size="9" text-anchor="middle">Summaries, transcripts, coaching data</text>
+
+  <!-- 10 Function Tools -->
+  <rect x="450" y="318" width="300" height="155" rx="8" fill="#1e1f2e" stroke="#3b82f6" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="600" y="340" fill="#3b82f6" font-size="12" font-weight="600" text-anchor="middle">10 Function Tools</text>
+
+  <text x="470" y="360" fill="#94a3b8" font-size="9">get_buyer_profile</text>
+  <text x="470" y="376" fill="#94a3b8" font-size="9">get_company_intel</text>
+  <text x="470" y="392" fill="#94a3b8" font-size="9">get_battle_card</text>
+  <text x="470" y="408" fill="#94a3b8" font-size="9">get_case_studies</text>
+  <text x="470" y="424" fill="#94a3b8" font-size="9">get_objection_handler</text>
+
+  <text x="620" y="360" fill="#94a3b8" font-size="9">get_pricing_guidance</text>
+  <text x="620" y="376" fill="#94a3b8" font-size="9">get_discovery_questions</text>
+  <text x="620" y="392" fill="#94a3b8" font-size="9">get_product_specs</text>
+  <text x="620" y="408" fill="#94a3b8" font-size="9">get_deal_history</text>
+  <text x="620" y="424" fill="#94a3b8" font-size="9">get_closing_techniques</text>
+
+  <text x="600" y="462" fill="#64748b" font-size="8" text-anchor="middle">Gemini tool-call interface</text>
+
+  <!-- ============================================ -->
+  <!-- GOOGLE CLOUD (Green) -->
+  <!-- ============================================ -->
+  <rect x="830" y="80" width="340" height="410" rx="12" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.5"/>
+  <text x="850" y="100" fill="#22c55e" font-size="11" font-weight="600" letter-spacing="1.5">GOOGLE CLOUD</text>
+
+  <!-- Gemini Live 2.5 Flash -->
+  <rect x="850" y="112" width="300" height="70" rx="8" fill="#1e1f2e" stroke="#22c55e" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="1000" y="134" fill="#22c55e" font-size="12" font-weight="600" text-anchor="middle">Vertex AI</text>
+  <text x="1000" y="152" fill="#bbf7d0" font-size="11" font-weight="600" text-anchor="middle">Gemini Live 2.5 Flash</text>
+  <text x="1000" y="170" fill="#94a3b8" font-size="9" text-anchor="middle">Real-time audio/video streaming</text>
+
+  <!-- Gemini 2.5 Flash -->
+  <rect x="850" y="196" width="300" height="70" rx="8" fill="#1e1f2e" stroke="#22c55e" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="1000" y="218" fill="#22c55e" font-size="12" font-weight="600" text-anchor="middle">Vertex AI</text>
+  <text x="1000" y="236" fill="#bbf7d0" font-size="11" font-weight="600" text-anchor="middle">Gemini 2.5 Flash</text>
+  <text x="1000" y="254" fill="#94a3b8" font-size="9" text-anchor="middle">Briefing chat, debrief generation</text>
+
+  <!-- Cloud Run -->
+  <rect x="850" y="280" width="140" height="50" rx="8" fill="#1e1f2e" stroke="#22c55e" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="920" y="302" fill="#22c55e" font-size="12" font-weight="600" text-anchor="middle">Cloud Run</text>
+  <text x="920" y="318" fill="#94a3b8" font-size="9" text-anchor="middle">Hosting</text>
+
+  <!-- Cloud Build -->
+  <rect x="1010" y="280" width="140" height="50" rx="8" fill="#1e1f2e" stroke="#22c55e" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="1080" y="302" fill="#22c55e" font-size="12" font-weight="600" text-anchor="middle">Cloud Build</text>
+  <text x="1080" y="318" fill="#94a3b8" font-size="9" text-anchor="middle">CI/CD</text>
+
+  <!-- Firestore -->
+  <rect x="850" y="344" width="300" height="50" rx="8" fill="#1e1f2e" stroke="#22c55e" stroke-width="1" stroke-dasharray="4 2" filter="url(#shadow)"/>
+  <text x="1000" y="366" fill="#22c55e" font-size="12" font-weight="600" text-anchor="middle">Firestore (Optional)</text>
+  <text x="1000" y="382" fill="#94a3b8" font-size="9" text-anchor="middle">Buyer data, company intel</text>
+
+  <!-- ============================================ -->
+  <!-- DATA FLOW ARROWS -->
+  <!-- ============================================ -->
+
+  <!-- Arrow: User Layer → Frontend (vertical) -->
+  <line x1="200" y1="240" x2="200" y2="260" stroke="#d4a84b" stroke-width="1.5" marker-end="url(#arrowGold)"/>
+
+  <!-- Arrow: Frontend → Backend (REST) -->
+  <path d="M 350 320 L 440 142" fill="none" stroke="#14b8a6" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <polygon points="440,142 432,150 438,152" fill="#14b8a6"/>
+  <rect x="370" y="218" width="60" height="18" rx="4" fill="#0f1117"/>
+  <text x="400" y="230" fill="#14b8a6" font-size="8" text-anchor="middle" font-weight="600">REST</text>
+
+  <!-- Arrow: Frontend → Backend (WebSocket - bidirectional) -->
+  <path d="M 350 379 L 440 214" fill="none" stroke="#14b8a6" stroke-width="2"/>
+  <polygon points="440,214 432,220 436,224" fill="#14b8a6"/>
+  <polygon points="350,379 358,373 354,369" fill="#14b8a6"/>
+  <rect x="370" y="283" width="60" height="18" rx="4" fill="#0f1117"/>
+  <text x="400" y="295" fill="#14b8a6" font-size="8" text-anchor="middle" font-weight="600">WebSocket</text>
+
+  <!-- Arrow: Backend WebSocket → Gemini Live (bidirectional) -->
+  <path d="M 750 214 L 840 147" fill="none" stroke="#60a5fa" stroke-width="2"/>
+  <polygon points="840,147 832,153 836,157" fill="#60a5fa"/>
+  <polygon points="750,214 758,208 754,204" fill="#60a5fa"/>
+  <rect x="775" y="168" width="55" height="18" rx="4" fill="#0f1117"/>
+  <text x="802" y="180" fill="#60a5fa" font-size="8" text-anchor="middle" font-weight="600">Audio/Video</text>
+
+  <!-- Arrow: Backend REST → Gemini 2.5 Flash -->
+  <path d="M 750 142 L 840 231" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <polygon points="840,231 832,225 836,221" fill="#60a5fa"/>
+  <rect x="775" y="178" width="55" height="18" rx="4" fill="#0f1117"/>
+  <text x="802" y="190" fill="#60a5fa" font-size="8" text-anchor="middle" font-weight="600">Briefing</text>
+
+  <!-- Arrow: Gemini → Tool Calls → Backend (loop) -->
+  <path d="M 850 165 C 810 165 810 400 450 400" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <polygon points="450,400 458,394 458,406" fill="#a78bfa"/>
+  <path d="M 450 420 C 810 420 810 175 850 175" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <polygon points="850,175 842,169 842,181" fill="#a78bfa"/>
+  <rect x="655" y="430" width="80" height="18" rx="4" fill="#0f1117"/>
+  <text x="695" y="442" fill="#a78bfa" font-size="8" text-anchor="middle" font-weight="600">Tool Calls</text>
+
+  <!-- Arrow: Backend → Artifact Store (internal) -->
+  <line x1="600" y1="244" x2="600" y2="256" stroke="#3b82f6" stroke-width="1" marker-end="url(#arrowBlue)"/>
+
+  <!-- ============================================ -->
+  <!-- LEGEND -->
+  <!-- ============================================ -->
+  <rect x="30" y="520" width="1140" height="110" rx="12" fill="#14161f" stroke="#2a2d3e" stroke-width="1"/>
+  <text x="60" y="545" fill="#94a3b8" font-size="11" font-weight="600" letter-spacing="1.5">DATA FLOWS</text>
+
+  <!-- Legend items -->
+  <line x1="60" y1="565" x2="120" y2="565" stroke="#14b8a6" stroke-width="2"/>
+  <text x="130" y="569" fill="#94a3b8" font-size="10">Browser ↔ WebSocket ↔ FastAPI ↔ Gemini Live (bidirectional audio/video)</text>
+
+  <line x1="60" y1="585" x2="120" y2="585" stroke="#14b8a6" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="130" y="589" fill="#94a3b8" font-size="10">Browser → REST → FastAPI → Gemini 2.5 Flash (briefing chat)</text>
+
+  <line x1="60" y1="605" x2="120" y2="605" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="130" y="609" fill="#94a3b8" font-size="10">Gemini → Tool calls → FastAPI tools → responses → Gemini (function calling loop)</text>
+
+  <!-- Color legend -->
+  <rect x="750" y="555" width="12" height="12" rx="3" fill="#d4a84b"/>
+  <text x="770" y="565" fill="#94a3b8" font-size="10">User Layer</text>
+
+  <rect x="750" y="575" width="12" height="12" rx="3" fill="#14b8a6"/>
+  <text x="770" y="585" fill="#94a3b8" font-size="10">Frontend (React)</text>
+
+  <rect x="750" y="595" width="12" height="12" rx="3" fill="#3b82f6"/>
+  <text x="770" y="605" fill="#94a3b8" font-size="10">Backend (FastAPI)</text>
+
+  <rect x="900" y="555" width="12" height="12" rx="3" fill="#22c55e"/>
+  <text x="920" y="565" fill="#94a3b8" font-size="10">Google Cloud</text>
+
+  <rect x="900" y="575" width="12" height="12" rx="3" fill="#a78bfa"/>
+  <text x="920" y="585" fill="#94a3b8" font-size="10">Tool Call Loop</text>
+
+  <!-- Footer -->
+  <text x="600" y="660" fill="#475569" font-size="9" text-anchor="middle">DealWhisper Architecture v1.0 — Built with Gemini Live 2.5 Flash on Google Cloud</text>
+</svg>
