@@ -643,7 +643,7 @@ export function useDealWhisperSession(): DealWhisperSession {
     scriptProcessorRef.current = processor
   }
 
-  const startVisualCapture = async (source: VisualSource) => {
+  const startVisualCapture = async (source: VisualSource, existingStream?: MediaStream | null) => {
     if (source === 'none') {
       await stopVisualCapture()
       setCurrentVisualSource('none')
@@ -659,7 +659,7 @@ export function useDealWhisperSession(): DealWhisperSession {
     }
 
     await stopVisualCapture()
-    const stream = await createVisualStream(source)
+    const stream = existingStream ?? await createVisualStream(source)
     if (!stream) {
       return
     }
@@ -813,6 +813,22 @@ export function useDealWhisperSession(): DealWhisperSession {
         microphoneStreamRef.current = microphoneStream
       }
 
+      // Request screen/camera capture early while user-gesture context is still active
+      let earlyVisualStream: MediaStream | null = null
+      if (visualSource !== 'none') {
+        try {
+          earlyVisualStream = await createVisualStream(visualSource)
+        } catch (visualError) {
+          const message = visualError instanceof Error ? visualError.message : 'Visual capture unavailable.'
+          setError(message)
+          pushTranscript({
+            direction: 'system',
+            speaker_label: 'System',
+            text: `${message} Continuing audio-only.`,
+          })
+        }
+      }
+
       const websocket = new WebSocket(buildWsEndpoint(normalizedBase, callId))
       websocketRef.current = websocket
 
@@ -859,9 +875,9 @@ export function useDealWhisperSession(): DealWhisperSession {
         await startAudioCapture(microphoneStreamRef.current)
       }
 
-      if (visualSource !== 'none') {
+      if (visualSource !== 'none' && earlyVisualStream) {
         try {
-          await startVisualCapture(visualSource)
+          await startVisualCapture(visualSource, earlyVisualStream)
         } catch (visualError) {
           const message = visualError instanceof Error ? visualError.message : 'Visual capture unavailable. Continuing audio-only.'
           setError(message)
